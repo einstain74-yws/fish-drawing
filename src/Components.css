@@ -1,0 +1,231 @@
+.upload-container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.upload-zone {
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+}
+
+.upload-zone:hover:not(.has-image):not(.loading) {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.upload-zone.dragging {
+  background-color: rgba(79, 70, 229, 0.1);
+  border-color: var(--primary);
+  transform: scale(1.02);
+}
+
+.upload-zone.loading {
+  cursor: wait;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.upload-icon-wrapper {
+  background-color: rgba(79, 70, 229, 0.1);
+  border-radius: 50%;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.upload-placeholder h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.upload-placeholder p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.preview-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  max-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.loading .preview-image {
+  opacity: 0.5;
+  filter: blur(2px) grayscale(50%);
+}
+
+.clear-image-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.clear-image-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Scanning Animation */
+.scanning-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.scanning-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  box-shadow: 0 0 10px var(--primary);
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.scanning-text {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-lg);
+  animation: pulse 1.5s infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .scanning-text {
+    background-color: rgba(31, 41, 55, 0.9);
+  }
+}
+
+/* Analysis Result Styles */
+.result-container {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.result-header h2 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.result-icon {
+  color: var(--primary);
+}
+
+.result-content {
+  color: var(--text-main);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.result-content h1, .result-content h2, .result-content h3 {
+  color: var(--text-main);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.result-content h3 {
+  font-size: 1.1rem;
+}
+
+.result-content ul, .result-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.result-content li {
+  margin-bottom: 0.5rem;
+}
+
+.result-content p {
+  margin-bottom: 1rem;
+}
+
+.result-content strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.result-footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--background);
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-left: 4px solid var(--secondary);
+}
+
+.result-footer svg {
+  color: var(--secondary);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
