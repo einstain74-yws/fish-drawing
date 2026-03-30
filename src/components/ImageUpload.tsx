@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { Upload, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Upload, X, RefreshCw } from 'lucide-react';
 
 interface ImageUploadProps {
   onImageUploaded: (base64: string) => void;
@@ -28,7 +28,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded, isLoa
     reader.readAsDataURL(file);
   };
 
-  const onDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
     if (isLoading) return;
@@ -36,7 +36,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded, isLoa
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       handleFile(e.dataTransfer.files[0]);
     }
-  }, [isLoading]);
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isLoading) return;
@@ -73,9 +73,19 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded, isLoa
           <div className="preview-container animate-fade-in">
             <img src={previewUrl} alt="Uploaded drawing" className="preview-image" />
             {!isLoading && (
-              <button className="clear-image-btn" onClick={clearImage}>
-                <X size={20} />
-              </button>
+              <div className="preview-actions">
+                <button 
+                  className="retry-btn" 
+                  onClick={(e) => { e.stopPropagation(); onImageUploaded(previewUrl); }}
+                  title="다시 분석하기"
+                >
+                  <RefreshCw size={16} />
+                  <span>다시 분석</span>
+                </button>
+                <button className="clear-image-btn" onClick={clearImage} title="다시 올리기">
+                  <X size={20} />
+                </button>
+              </div>
             )}
             {isLoading && (
               <div className="scanning-overlay">
